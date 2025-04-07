@@ -6,13 +6,17 @@
 #    By: cpoulain <cpoulain@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/06 01:51:31 by cpoulain          #+#    #+#              #
-#    Updated: 2025/03/31 14:41:25 by cpoulain         ###   ########.fr        #
+#    Updated: 2025/04/07 11:31:00 by cpoulain         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #Includes
 
 include Files.mk
+
+# Commands
+
+RM			:=	/bin/rm -f
 
 # Flags and compiler
 
@@ -25,6 +29,8 @@ OBJ_DIR		:=	build
 BIN_DIR		:=	bin
 SRC_DIR		:=	src
 INC_DIR		:=	includes
+
+MFF			:=	mff -r=./$(SRC_DIR)/ -t=cpp
 
 # OBJS formatted
 
@@ -46,6 +52,10 @@ fclean: clean
 
 re: fclean all
 
+mff:
+	@$(MFF)
+	@printf "Done re-generating Files.mk !\n"
+
 # Binary generation
 
 $(TARGET): $(OBJS)
@@ -56,4 +66,4 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) -I$(INC_DIR) -c $< -o $@
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re mff
